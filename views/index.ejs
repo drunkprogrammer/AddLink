@@ -1,0 +1,13 @@
+<% links.forEach( function( link ){ %>
+  <p><%= link.linkaddress %></p>
+<% }); %>
+<% links.forEach( function ( link ){ %>
+  <p>
+    <span>
+      <%= link.linkaddress %>
+    </code>
+    <span>
+      <a href="/destroy/<%= link._id %>" title="Delete this link item">Delete</a>
+    </code>
+  </p>
+<% }); %>

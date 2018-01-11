@@ -1,18 +1,18 @@
+var db=require('./db');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var routes=require('./routes');
+var http=require('http');
 var index = require('./routes/index');
 //var users = require('./routes/users');
 
-require('./db');
 var expressLayouts = require('express-ejs-layouts');
 
 var app = express();
 
+app.set('port',process.env.PORT || 3001);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,7 +20,6 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use( express.bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -48,8 +47,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post( '/create', routes.create );
-app.get( '/destroy/:id', routes.destroy );
-app.post( '/update/:id', routes.update );
+app.get('/',routes.index);
+//app.post( '/create', routes.create );
+//app.get( '/destroy/:id', routes.destroy );
 
 module.exports = app;

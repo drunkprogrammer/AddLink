@@ -1,15 +1,29 @@
 var mongoose=require('mongoose');
-var addlink=mongoose.model('addlink');
+var counter=1;
+var link=mongoose.model('link');
+var SerialNumber={type:Number,default:()=>counter++};
+
 exports.create = function ( req, res ){
-  new addlink({
+  new link({
     aurl: req.body.linkaddress,
-    updated: Date.now()
+    updated: Date.now(),
+    serial_number:SerialNumber
   }).save( function( err,link, count ){
     res.redirect( '/' );
   });
 };
+/*
+link.find({serial_number:{$gt:0}}).sort({serial_number:-1})
+.then(([first,...others])=>{
+	if(first) 
+	counter=first.serial_number+1;
+});
+*/
+
+/*
+
 exports.index = function ( req, res ){
-  addlink.find().sort( '-updated' ).
+  link.find().sort( 'updated' ).
     exec( function ( err, links ){
       res.render( 'index', {
           title : 'All collected link',
@@ -17,19 +31,24 @@ exports.index = function ( req, res ){
       });
     });
 };
+
+
 exports.destroy = function ( req, res ){
-  addlink.findById( req.params.id, function ( err, link ){
-    link.remove( function ( err, link ){
+  link.findById( req.params.id, function ( err, links ){
+    link.remove( function ( err, links ){
       res.redirect( '/' );
     });
   });
 };
+*/
+/*
 exports.update = function ( req, res ){
-  addlink.findById( req.params.id, function ( err, link ){
+  link.findById( req.params.id, function ( err, links ){
     link.linkaddress= req.body.linkaddress;
     link.updated = Date.now();
-    link.save( function ( err, link, count ){
+    link.save( function ( err, links, count ){
       res.redirect( '/' );
     });
   });
 };
+*/

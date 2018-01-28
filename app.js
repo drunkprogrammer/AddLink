@@ -7,7 +7,7 @@ var routes=require('./routes');
 var http=require('http');
 var index = require('./routes/index');
 var expressLayouts = require('express-ejs-layouts');
-
+//var app = connect();
 var app = express();
 
 app.set('port',process.env.PORT || 3001);
